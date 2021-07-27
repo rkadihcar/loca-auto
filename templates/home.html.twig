@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+	{% block title %}🚗Bienvenue{% endblock %}
+
+{% block body %}
+	<span class="h1 container m-5">Bonjour
+		{% if app.user %}
+			{{ app.user.firstname }}
+		{% endif %}
+		!</span>
+{% endblock %}

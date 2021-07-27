@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}{% endblock %}
+		</title>
+		{% block stylesheets %}
+			<!-- CSS only -->
+			<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+		{# <link rel="stylesheet" type="text/css" href="{{ asset('assets/main.css') }}"> #}
+		{% endblock %}
+
+	</head>
+	<body>
+
+		<header>
+			{% block header %}
+				<nav class="navbar navbar-expand-lg bg-nav mb-5 " style="background-color: #e3f2fd;">
+					<div class="container-fluid marge ">
+						<a class="navbar-brand link-dark fw-bold fs-1 text-warning navbar-light" href="#">Loca-Auto</a>
+						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse justify-content-end " id="navbarNav">
+							<ul class="navbar-nav">
+								<li class="nav-item">
+									<a class="nav-link link-info link-infoactive" aria-current="page" href="{{ path('home') }}">Accueil</a>
+								</li>
+								{% if app.user %}
+									{% if 'ROLE_ADMIN' in app.user.roles %}
+										<li class="nav-item">
+											<a class="nav-link link-info" href="{{ path('admin') }}">Tableau de bord</a>
+										</li>
+                                        {% endif %}
+										<li class="nav-item">
+											<a class="nav-link link-info" href="{{ path('user_show', {id:app.user.id}) }}" tabindex="-1" aria-disabled="true">Mon profil</a>
+										</li>
+										<li>
+											<a class="nav-link link-info link-infoactive"  href="/rental">Voir mes réservations</a>
+										</li>
+										<li>
+											<a class="nav-link link-info link-infoactive" aria-current="page" href="/logout">Déconnection</a>
+										</li>
+									{% else %}
+										<li>
+											<a class="nav-link link-info link-infoactive" href="/login">Connection</a>
+										</li>
+										<li class="nav-item"><a class="nav-link link-info" href="/register">Créer un compte</a></li>
+									{% endif %}
+									</ul>
+
+							</div>
+						</div>
+					</nav>
+
+				{% endblock %}
+			</header>
+			<div class="container"> {% block body %}{% endblock %}
+				</div>
+
+				{#Footer#}
+				{% block footer %}
+					<footer
+						class=" footer text-center text-lg-start bg-nav">
+						<!-- Copyright -->
+						<div class="text-center p-3">
+							©
+							{{ "now"|date("Y") }}
+							Copyright : Antoine , Iza & Rachida
+						</div>
+						<!-- Copyright -->
+					</footer>
+				{% endblock %}
+
+				{% block javascripts %}
+					<!-- JavaScript Bundle with Popper -->
+					<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+				{% endblock %}
+			</body>
+		</body>
+	</html>
