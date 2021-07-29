@@ -65,9 +65,10 @@ class RentalController extends AbstractController
     /**
      * @Route("/{id}/edit", name="rental_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Rental $rental): Response
+    public function edit(Request $request, Rental $rental, UserInterface $user): Response
     {
-        $form = $this->createForm(RentalType::class, $rental);
+        $form = $this->createForm(RentalType::class,$rental,[            
+            'user' => $user,]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

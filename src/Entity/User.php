@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Cette adresse mail est déjà utilisée")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -260,6 +260,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __toString()
     {
-        return $this->getFullname();
+        return $this->firstName . ' ' . $this->lastName .' ' . $this->email;
     }
+    
  }

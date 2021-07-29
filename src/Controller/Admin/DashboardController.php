@@ -100,7 +100,7 @@ class DashboardController extends AbstractDashboardController
         
         // Gears
 
-        yield MenuItem::section('Boîte à vitesse');
+        yield MenuItem::section('Boîte de vitesse');
         yield MenuItem::linkToCrud('Liste', 'fas fa-cogs', Gear::class);
         yield MenuItem::linkToCrud('Ajout', 'fas fa-user-plus', Seat::class)->setAction('new');
         yield MenuItem::section();

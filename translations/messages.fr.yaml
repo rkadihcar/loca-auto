@@ -1,1 +1,33 @@
-Dashboard : Tableau de bord 
+Dashboard : Tableau de bord
+User : Utilisateur
+Users : Utilisateurs
+New : Nouveau
+List : Liste
+Add : Ajouter
+Cars : Voitures
+Logout : Déconnexion
+Password : Mot de passe
+Firstname : Prénom
+Lastname : Nom de famille
+Phone : Téléphone
+Date Of Birth : Date de naissance
+Is Verified : email vérifié
+Start Date : Date de début
+End Date : Date de fin
+Endtime : Date de fin
+Price : Prix
+Registration Number : Plaque d'immatriculation
+Avaibality : Disponibilité
+Makes : Marques
+Numbers : Nombres
+Engine : Moteur
+Gear : Boite de vitesse
+Seat : Nombre de sièges
+Engines : Types de moteurs
+Gears : Boite de vitesse
+Seats : Nombre de places
+fleet : Status
+Pick Up Date : Date de départ
+Drop Off Date : Date de retour
+
+__label.form.empty_value : Rechercher

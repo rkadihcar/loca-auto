@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\CarRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;  
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=CarRepository::class)
+ * @UniqueEntity(fields={"registration_number"}, message="Veuillez renseigner une plaque d'immatriculation valide") 
  */
 class Car
 {
@@ -17,8 +20,13 @@ class Car
      */
     private $id;
 
+  
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(name="registration_number",type="string", length=10)
+     * @Assert\Regex(
+     * pattern="/^[A-Z]{2}-\d{3}-[A-Z]{2}$/",
+     * message="ytrez"
+     * )
      */
     private $registrationNumber;
 
@@ -26,17 +34,6 @@ class Car
      * @ORM\Column(type="float")
      */
     private $pricePerDay;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $avaibality;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Rental::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $rentals;
 
     /**
      * @ORM\ManyToOne(targetEntity=Make::class)
@@ -93,30 +90,6 @@ class Car
     public function setPricePerDay(float $pricePerDay): self
     {
         $this->pricePerDay = $pricePerDay;
-
-        return $this;
-    }
-
-    public function getAvaibality(): ?bool
-    {
-        return $this->avaibality;
-    }
-
-    public function setAvaibality(bool $avaibality): self
-    {
-        $this->avaibality = $avaibality;
-
-        return $this;
-    }
-
-    public function getRentals(): ?Rental
-    {
-        return $this->rentals;
-    }
-
-    public function setRentals(?Rental $rentals): self
-    {
-        $this->rentals = $rentals;
 
         return $this;
     }
@@ -179,5 +152,10 @@ class Car
         $this->seats = $seats;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->makes . ' ' . $this->registrationNumber . ' ' . $this->seats . ' places';
     }
 }
