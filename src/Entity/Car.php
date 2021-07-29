@@ -6,10 +6,13 @@ use App\Repository\CarRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;  
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=CarRepository::class)
- * @UniqueEntity(fields={"registration_number"}, message="Veuillez renseigner une plaque d'immatriculation valide") 
+ * @UniqueEntity(fields={"registrationNumber"}, message="Veuillez renseigner une plaque d'immatriculation valide") 
+ * @Vich\Uploadable
  */
 class Car
 {
@@ -64,6 +67,17 @@ class Car
      * @ORM\JoinColumn(nullable=false)
      */
     private $seats;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="cars_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
 
     public function getId(): ?int
     {
@@ -157,5 +171,29 @@ class Car
     public function __toString()
     {
         return $this->makes . ' ' . $this->registrationNumber . ' ' . $this->seats . ' places';
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile($imageFile): self
+    {
+        $this->imageFile = $imageFile;
+
+        return $this;
     }
 }
