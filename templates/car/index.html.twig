@@ -1,37 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Car index{% endblock %}
+{% block title %}Car index
+{% endblock %}
 
 {% block body %}
-    <h1>Car index</h1>
+	<h1>Nos voitures</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>RegistrationNumber</th>
-                <th>PricePerDay</th>
-                <th>Avaibality</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for car in cars %}
-            <tr>
-                <td>{{ car.id }}</td>
-                <td>{{ car.registrationNumber }}</td>
-                <td>{{ car.pricePerDay }}</td>
-                <td>{{ car.avaibality ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('car_show', {'id': car.id}) }}">show</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<div class="container mx-auto mt-4">
+		<div class="row">
+			{% for car in cars %}
+				{% if (car.fleets == 'Disponible') or (car.fleets == 'Louée') %}
+					<div class="col-md-4">
+						<div class="card" style="width: 18rem;">
+							<img src="{{asset('assets/img/' ~ car.image )}}" class="card-img-top img-thumbnail" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">{{ car.makes}}</h5>
+								<h6 class="card-subtitle mb-2 text-muted">{{ car.pricePerDay}}€</h6>
+								<p class="card-text">Quel que soit le véhicule que tu désires, choisis-moi parmi une gamme complète qui répondra à chacune de tes envies les plus coquines.</p>
+								<a href="{{ car.id }}" class="btn btn-outline-info  mr-2">
+									<i class="fas fa-link"></i>
+									Regarde mes détails</a>
+								<a href="{% if app.user %}{{ path('rental_new') }} {% else %} {{ path('app_login') }} {% endif %}" class="btn btn-outline-success"><i class="fab fa-github"></i>
+									Loue moi</a>
+							</div>
+						</div>
+					</div>
+
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+	<a href="{{ path('home') }}">Retour vers la page d'accueil</a>
+
 
 {% endblock %}

@@ -17,7 +17,10 @@
             </tr>
         </thead>
         <tbody>
+        {% set break = false %}
         {% for rental in rentals %}
+        {% if not break %}
+        {% if rental.users == app.user %}
             <tr>
                 {# <td>{{ rental.id }}</td> #}
                 <td>{{ app.user.lastName }}</td>
@@ -33,6 +36,9 @@
             <tr>
                 <td colspan="4">no records found</td>
             </tr>
+              {% set break = true %}
+        {% endif %}
+        {% endif %}
         {% endfor %}
         </tbody>
     </table>

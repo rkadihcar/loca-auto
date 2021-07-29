@@ -1,34 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Car{% endblock %}
+{% block title %}Car
+{% endblock %}
 
 {% block body %}
-    <h1>Car</h1>
+		{% if app.user %}
+		<h1 class="m-5">{{ app.user.firstname }}, tu as plus de détails pour la {{ car.makes }} que tu souhaites voir</h1>
+           {% else %}
+	<h1 class="m-5">Voici plus de détails pour la {{ car.makes }} {{ car.seats }} sièges que vous souhaitiez voir</h1>
+		{% endif %}
+	<div class="container mb-5">
+		<div class="row">
+			<div class="col">
+				<img src="{{asset('assets/img/' ~ car.image )}}" class="img-thumbnail" alt="...">
+			</div>
+			<div class="col">
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>Marque</th>
+							<td>{{ car.makes }}</td>
+						</tr>
+						<tr>
+							<th>RegistrationNumber</th>
+							<td>{{ car.registrationNumber }}</td>
+						</tr>
+						<tr>
+							<th>Prix à la journée</th>
+							<td>{{ car.pricePerDay }}</td>
+						</tr>
+						<tr>
+							<th>Nombre de sièges</th>
+							<td>{{ car.seats }}</td>
+						</tr>
+						<tr>
+							<th>Boîte de vitesse</th>
+							<td>{{ car.gears }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ car.id }}</td>
-            </tr>
-            <tr>
-                <th>RegistrationNumber</th>
-                <td>{{ car.registrationNumber }}</td>
-            </tr>
-            <tr>
-                <th>PricePerDay</th>
-                <td>{{ car.pricePerDay }}</td>
-            </tr>
-            <tr>
-                <th>Avaibality</th>
-                <td>{{ car.avaibality ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<a href="{{ path('car_index') }}">Retour à la liste des voitures</a>
 
-    <a href="{{ path('car_index') }}">back to list</a>
-
-    <a href="{{ path('car_edit', {'id': car.id}) }}">edit</a>
-
-    {{ include('car/_delete_form.html.twig') }}
 {% endblock %}
